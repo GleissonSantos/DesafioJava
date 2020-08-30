@@ -15,37 +15,39 @@ public class HomePage extends PageBase{
     }
 
 
-
-
     //Mapeamento
-    By clicarBarraPesquisa = By.id("lgpd-accept");
-    By clicarBuscarButton = By.id("h_search-input");
-
+    By clicarAccCookies = By.id("lgpd-accept");
+    By clicarBarraPesquisa = By.id("h_search-input");
+    By clicarBuscarButton = By.id("h_search-btn");
+    By clicarSubMenuSmartPhone = By.xpath("//span[text()='Smartphones']");
 
 
     //Ações
-    public void clicarNaBarraPesquisa() {
+
+    public HomePage clicarAceitarCookies() {
+        click(clicarAccCookies);
+        return this;
+    }
+
+
+    public HomePage clicarNaBarraPesquisa() {
         click(clicarBarraPesquisa);
+        return this;
     }
 
-     public void clicarEmBuscar(){
+    public HomePage preencherCampo(String produto) {
+        sendKeys("h_search-input", produto);
+        return this;
+    }
+
+     public ResultadoBuscaPage clicarEmBuscar(){
         click(clicarBuscarButton);
+
+        return new ResultadoBuscaPage(driver);
     }
 
-
-//        driver.findElement(By.id("lgpd-accept")).click();
-//        driver.findElement(By.id("h_search-input")).click();
-//        driver.findElement(By.id("h_search-input")).sendKeys("Console ps4");
-//        driver.findElement(By.id("h_search-btn")).click();
-//        String resultado = driver.findElement(By.xpath("//div[@class='form-group display-sm-inline-block']")).getText();
-//        Assert.assertNotEquals("0", resultado);
-//        driver.findElement(By.xpath("//h2[contains(text(), 'Console Playstation 4 Hits 1TB Bundle 10 - Gran Turismo + Death Stranding + The Last of Us - PS4')]")).click();
-//        driver.findElement(By.id("btn-buy")).click();
-//        driver.findElement(By.id("btn-continue")).click();
-//        String nomePagina = driver.findElement(By.xpath("//h2[@class='page-title']")).getText();
-//        Assert.assertEquals("Meu carrinho",nomePagina);
-//        String qtdPedido = driver.findElement(By.xpath("//input[@name='productQuantity']")).getText();
-//        Assert.assertEquals("1",qtdPedido);
-//        driver.quit();
-
+    public SmartPhonePage clicarSmartPhone(){
+        click(clicarSubMenuSmartPhone);
+        return new SmartPhonePage(driver);
     }
+}

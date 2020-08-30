@@ -15,7 +15,8 @@ public class Web {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         //navegar para o site
-        driver.get("https://www.americanas.com.br/");
+        driver.get("https://www.submarino.com.br/");
+        driver.manage().window().maximize();
 
         return driver;
 

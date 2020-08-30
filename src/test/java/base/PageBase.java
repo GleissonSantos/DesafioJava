@@ -1,37 +1,60 @@
 package base;
 
-import org.junit.After;
-import org.junit.Before;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import suport.Web;
-
-import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PageBase {
     protected WebDriver driver;
+    protected WebDriverWait wait = null;
+    protected JavascriptExecutor javaScriptExecutor = null;
+
 
     //construtor
     public PageBase(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void abrirNavegador() {
-
-        //abrir o navegador
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Gleisson\\Desktop\\Pasta Pessoal\\Desafio\\desafioZup\\chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        //navegar para o site
-        driver.get("https://www.submarino.com.br/");
-        driver.manage().window().maximize();
-
-    }
-
     protected void click(By element){
         driver.findElement(element).click();
     }
+
+    protected void sendKeys(String locator, String text ){
+        driver.findElement(By.id(locator)).sendKeys(text);
+    }
+
+    protected String getText(By locator){
+        String text = driver.findElement(locator).getText();
+        return text;
+    }
+
+   protected WebElement waitForElement(By locator){
+       new WebDriverWait(driver, 10)
+       .until(ExpectedConditions.presenceOfElementLocated((locator)));
+       return null;
+   }
+
+    protected void waitForElementtoBeClicable(By locator){
+
+        WebDriverWait aguardar = new WebDriverWait(driver,30);
+        aguardar.until(ExpectedConditions.elementToBeClickable(locator));
+
+    }
+
+    protected void waitForDesappear(){
+        WebDriverWait aguardar = new WebDriverWait(driver,60);
+       aguardar.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("css=svg.loading-bar-spinner-icon"))));
+    }
+
+    protected void mouseOver(By locator){
+        Actions action = new Actions(driver);
+        action.moveToElement(waitForElement(locator)).build().perform();
+    }
+
 
 
 }
