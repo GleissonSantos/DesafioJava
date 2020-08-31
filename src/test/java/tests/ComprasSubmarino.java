@@ -4,6 +4,7 @@ import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import pages.HomePage;
 import suport.Web;
@@ -15,56 +16,55 @@ public class ComprasSubmarino {
     public void setUp(){ driver =  Web.creatorChrome(); }
 
 
-   // @Test
+    @Test
     public void colocarItensCarrinhoTest(){
+        String produtoASerBuscado = "Console ps4";
+        String modeloConsole = "Console Sony Playstation 4 Slim Megapack Bundle V11";
         new HomePage(driver)
+
         .clicarAceitarCookies()
         .clicarNaBarraPesquisa()
-        .preencherCampo("Console ps4")
+        .preencherCampo(produtoASerBuscado)
         .clicarEmBuscar()
         .validandoRetornodaBusca()
-        .clicarNoProdutoDaLista("Console Sony Playstation 4 Slim Megapack Bundle V11")
+        .clicarNoProdutoDaLista(modeloConsole)
         .clicarComprarButton()
         .validaNomeDaPagina()
-        .VerificaSeContemItemCarrinho("Console Sony Playstation 4 Slim Megapack Bundle V11");
-
+        .VerificaSeContemItemCarrinho(modeloConsole);
     }
 
-   // @Test
+    @Test
     public void pesquisarItemInexistente(){
+        String produtoASerBuscado = "desafiozup";
         String validarItem = new HomePage(driver)
-                .clicarAceitarCookies()
-                .clicarNaBarraPesquisa()
-                .preencherCampo("desafiozup")
-                .clicarEmBuscar()
-                .retornaTextoProdutoInexistente();
+
+        .clicarAceitarCookies()
+        .clicarNaBarraPesquisa()
+        .preencherCampo(produtoASerBuscado)
+        .clicarEmBuscar()
+        .retornaTextoProdutoInexistente();
         assertEquals("Não encontramos nenhum resultado na sua busca.",validarItem);
     }
 
     @Test
-    public void ComprarCelularPorMarcaUtilizandoSubMenueMenuLateral(){
-        new HomePage(driver)
+    public void comprarCelularPorMarcaUtilizandoSubMenuEMenuLateral(){
+         String marcaSmartPhone = "Iphone 11 Pro Max";
+         String modeloSmartPhone = "iPhone 11 Pro Max 512GB Cinza Espacial iOS 4G + Wi-Fi Câmera 12MP";
+         new HomePage(driver)
+
         .clicarAceitarCookies()
         .clicarSmartPhone()
-        .clicarMenuLateral()
-//        .clicaNaCategoriaDoTelefoneDesejado("iPhone")
+        .clicarCategoriaSmarPhoneMenuLateral()
         .clicarNoModeloDesejado()
-        .clicarNoModeloEspecifico("Iphone 11 Pro Max")
-        .clicarNoSmartPhoneDaLista("iPhone 11 Pro Max 512GB Cinza Espacial iOS 4G + Wi-Fi Câmera 12MP")
+        .clicarNoModeloEspecifico(marcaSmartPhone)
+        .clicarNoSmartPhoneDaLista(modeloSmartPhone)
         .clicarComprarButton()
         .validaNomeDaPagina()
-        .VerificaSeContemItemCarrinho("iPhone 11 Pro Max 512GB Cinza Espacial iOS 4G + Wi-Fi Câmera 12MP");
+        .VerificaSeContemItemCarrinho(modeloSmartPhone);
     }
 
     @After
     public void tearDown(){
         driver.quit();
     }
-
-    //colocar itens no carrinho atraves sub-menus
-    //Pesquisa produto e envia pro carrinho
-    //Pesquisa produto que não encontra
-    //Seleciona menu inicial e escolhe produto com preço que quero
-    //Tirar item duplicado do carrinho
-
 }

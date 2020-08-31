@@ -38,23 +38,10 @@ public class PageBase {
        return null;
    }
 
-    protected void waitForElementtoBeClicable(By locator){
-
-        WebDriverWait aguardar = new WebDriverWait(driver,30);
-        aguardar.until(ExpectedConditions.elementToBeClickable(locator));
+    protected void waitForElementToBeClickable(By locator){
+        WebDriverWait aguardar = new WebDriverWait(driver,20);
+        aguardar.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
     }
-
-    protected void waitForDesappear(){
-        WebDriverWait aguardar = new WebDriverWait(driver,60);
-       aguardar.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("css=svg.loading-bar-spinner-icon"))));
-    }
-
-    protected void mouseOver(By locator){
-        Actions action = new Actions(driver);
-        action.moveToElement(waitForElement(locator)).build().perform();
-    }
-
-
 
 }

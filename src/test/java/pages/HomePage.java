@@ -42,7 +42,6 @@ public class HomePage extends PageBase{
 
      public ResultadoBuscaPage clicarEmBuscar(){
         click(clicarBuscarButton);
-
         return new ResultadoBuscaPage(driver);
     }
 
