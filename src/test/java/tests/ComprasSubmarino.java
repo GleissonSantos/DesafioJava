@@ -5,8 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import pages.HomePage;
+import suport.ResourceParameters;
 import suport.Web;
 
 public class ComprasSubmarino {
@@ -17,50 +19,48 @@ public class ComprasSubmarino {
 
 
     @Test
+    //Busca o item através da barra pesquisa, seleciona e segue com o processo de compra
     public void colocarItensCarrinhoTest(){
-        String produtoASerBuscado = "Console ps4";
-        String modeloConsole = "Console Sony Playstation 4 Slim Megapack Bundle V11";
         new HomePage(driver)
 
         .clicarAceitarCookies()
         .clicarNaBarraPesquisa()
-        .preencherCampo(produtoASerBuscado)
+        .preencherCampo(ResourceParameters.produtoASerBuscado)
         .clicarEmBuscar()
         .validandoRetornodaBusca()
-        .clicarNoProdutoDaLista(modeloConsole)
+        .clicarNoProdutoDaLista(ResourceParameters.modeloConsole)
         .clicarComprarButton()
         .validaNomeDaPagina()
-        .VerificaSeContemItemCarrinho(modeloConsole);
+        .VerificaSeContemItemCarrinho(ResourceParameters.modeloConsole);
     }
 
     @Test
+    //Busca por um item que não existe
     public void pesquisarItemInexistente(){
-        String produtoASerBuscado = "desafiozup";
         String validarItem = new HomePage(driver)
 
         .clicarAceitarCookies()
         .clicarNaBarraPesquisa()
-        .preencherCampo(produtoASerBuscado)
+        .preencherCampo(ResourceParameters.produtoInexistenteASerBuscado)
         .clicarEmBuscar()
         .retornaTextoProdutoInexistente();
         assertEquals("Não encontramos nenhum resultado na sua busca.",validarItem);
     }
 
     @Test
+    //Busca um item e vai navegando na página através dos submenus até encontrar o smartphome desejado,no caso um Iphone
     public void comprarCelularPorMarcaUtilizandoSubMenuEMenuLateral(){
-         String marcaSmartPhone = "Iphone 11 Pro Max";
-         String modeloSmartPhone = "iPhone 11 Pro Max 512GB Cinza Espacial iOS 4G + Wi-Fi Câmera 12MP";
          new HomePage(driver)
 
         .clicarAceitarCookies()
         .clicarSmartPhone()
         .clicarCategoriaSmarPhoneMenuLateral()
         .clicarNoModeloDesejado()
-        .clicarNoModeloEspecifico(marcaSmartPhone)
-        .clicarNoSmartPhoneDaLista(modeloSmartPhone)
+        .clicarNoModeloEspecifico(ResourceParameters.modeloEspecificoSmartPhone)
+        .clicarNoSmartPhoneDaLista(ResourceParameters.nomeCompletoModeloSmartPhone)
         .clicarComprarButton()
         .validaNomeDaPagina()
-        .VerificaSeContemItemCarrinho(modeloSmartPhone);
+        .VerificaSeContemItemCarrinho(ResourceParameters.nomeCompletoModeloSmartPhone);
     }
 
     @After

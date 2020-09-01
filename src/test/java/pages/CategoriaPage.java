@@ -26,3 +26,4 @@ public class CategoriaPage extends PageBase {
     public ModeloSmartphonePage clicarNoModeloEspecifico(String modeloSmartPhone){ click(clicarModelo(modeloSmartPhone)); return new ModeloSmartphonePage(driver); }
 
 }
+
